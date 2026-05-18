@@ -1,0 +1,29 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: forge fmt --check
+      - run: forge build
+      - run: forge test -vvv
+      - run: forge coverage --report summary
+      - run: npm ci
+      - run: npm run frontend:build
+      - name: Slither
+        uses: crytic/slither-action@v0.4.0
+        continue-on-error: false
+        with:
+          target: .
+          slither-args: --exclude-low --exclude-informational

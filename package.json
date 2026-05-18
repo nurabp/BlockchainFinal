@@ -1,0 +1,27 @@
+{
+  "name": "rwa-governed-protocol",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "forge test -vvv",
+    "build": "forge build",
+    "coverage": "forge coverage --report summary",
+    "fmt": "forge fmt --check",
+    "lint": "npm run fmt",
+    "local:demo": "powershell -ExecutionPolicy Bypass -File scripts/local-demo.ps1",
+    "local:setup": "powershell -ExecutionPolicy Bypass -File scripts/local-demo.ps1 -NoFrontend",
+    "frontend:dev": "vite --config frontend/vite.config.js --host 127.0.0.1",
+    "frontend:build": "vite build --config frontend/vite.config.js"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "vite": "^5.4.11",
+    "typescript": "^5.5.0",
+    "prettier": "^3.3.3"
+  },
+  "dependencies": {
+    "ethers": "^6.13.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

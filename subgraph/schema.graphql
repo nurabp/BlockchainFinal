@@ -1,0 +1,34 @@
+type Token @entity(immutable: false) {
+  id: Bytes!
+  symbol: String!
+  totalSupply: BigInt!
+}
+
+type VaultDeposit @entity(immutable: true) {
+  id: Bytes!
+  caller: Bytes!
+  owner: Bytes!
+  assets: BigInt!
+  shares: BigInt!
+  blockNumber: BigInt!
+}
+
+type Swap @entity(immutable: true) {
+  id: Bytes!
+  trader: Bytes!
+  tokenIn: Bytes!
+  amountIn: BigInt!
+  amountOut: BigInt!
+  blockNumber: BigInt!
+}
+
+type Proposal @entity(immutable: false) {
+  id: ID!
+  proposer: Bytes!
+  target: Bytes!
+  description: String!
+  forVotes: BigInt!
+  againstVotes: BigInt!
+  state: String!
+}
+

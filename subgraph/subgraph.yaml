@@ -1,0 +1,92 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: GovernanceToken
+    network: arbitrum-sepolia
+    source:
+      address: "0x0000000000000000000000000000000000000000"
+      abi: GovernanceToken
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Token
+      abis:
+        - name: GovernanceToken
+          file: ../out/GovernanceToken.sol/GovernanceToken.json
+      eventHandlers:
+        - event: CollateralIssued(indexed address,indexed address,uint256,string)
+          handler: handleCollateralIssued
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: RwaVault
+    network: arbitrum-sepolia
+    source:
+      address: "0x0000000000000000000000000000000000000000"
+      abi: RwaVault
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - VaultDeposit
+      abis:
+        - name: RwaVault
+          file: ../out/RwaVault.sol/RwaVault.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed address,uint256,uint256)
+          handler: handleDeposit
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: AMM
+    network: arbitrum-sepolia
+    source:
+      address: "0x0000000000000000000000000000000000000000"
+      abi: ConstantProductAMM
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Swap
+      abis:
+        - name: ConstantProductAMM
+          file: ../out/ConstantProductAMM.sol/ConstantProductAMM.json
+      eventHandlers:
+        - event: Swap(indexed address,indexed address,uint256,uint256)
+          handler: handleSwap
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: Governor
+    network: arbitrum-sepolia
+    source:
+      address: "0x0000000000000000000000000000000000000000"
+      abi: ProtocolGovernor
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.8
+      language: wasm/assemblyscript
+      entities:
+        - Proposal
+      abis:
+        - name: ProtocolGovernor
+          file: ../out/ProtocolGovernor.sol/ProtocolGovernor.json
+      eventHandlers:
+        - event: ProposalCreated(indexed uint256,indexed address,address,string)
+          handler: handleProposalCreated
+        - event: VoteCast(indexed address,indexed uint256,bool,uint256)
+          handler: handleVoteCast
+        - event: ProposalQueued(indexed uint256,bytes32)
+          handler: handleProposalQueued
+        - event: ProposalExecuted(indexed uint256)
+          handler: handleProposalExecuted
+      file: ./src/mapping.ts

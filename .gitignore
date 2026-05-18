@@ -1,0 +1,9 @@
+out/
+cache/
+broadcast/
+node_modules/
+frontend/dist/
+.env
+*.log
+coverage/
+slither-report.json
